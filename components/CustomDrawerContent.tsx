@@ -42,7 +42,6 @@ export default function CustomDrawerContent(props: any) {
     image: null as string | null
   });
 
-  // Carregar dados do usuário sempre que o menu for focado/aberto
   useFocusEffect(
     useCallback(() => {
       const loadUser = async () => {

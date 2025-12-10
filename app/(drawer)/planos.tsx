@@ -317,12 +317,12 @@ export default function PlansScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Links de Rodapé */}
+        {/* Links de Rodapé
         <View style={styles.footerLinks}>
           <TouchableOpacity><Text style={[styles.link, { color: colors.primary }]}>Suporte</Text></TouchableOpacity>
           <TouchableOpacity><Text style={[styles.link, { color: colors.primary }]}>Termos de Uso</Text></TouchableOpacity>
           <TouchableOpacity><Text style={[styles.link, { color: colors.primary }]}>Política de Privacidade</Text></TouchableOpacity>
-        </View>
+        </View> */}
 
       </View>
 

@@ -100,7 +100,7 @@ export default function AlterarSenhaScreen() {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout showTrialBanner={false}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
           

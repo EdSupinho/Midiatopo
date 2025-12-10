@@ -18,7 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getUserByEmail, updateUserProfile } from '../lib/database'; // Funções do SQLite
+import { getUserByEmail, updateUserProfile } from '../lib/database';
 
 // --- TEMA ---
 const THEME = {
@@ -50,7 +50,6 @@ export default function PerfilScreen() {
   const isDark = colorScheme === 'dark';
   const colors = isDark ? THEME.dark : THEME.light;
 
-  // Estados do Formulário
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [telefone, setTelefone] = useState('');
@@ -58,26 +57,23 @@ export default function PerfilScreen() {
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // 1. Carregar dados ao abrir a tela
   useEffect(() => {
     loadUserData();
   }, []);
 
   const loadUserData = async () => {
     try {
-      // Recupera o email da sessão atual (AsyncStorage)
       const jsonValue = await AsyncStorage.getItem('currentUser');
       const sessionUser = jsonValue != null ? JSON.parse(jsonValue) : null;
 
       if (sessionUser?.email) {
-        // Busca os dados completos e atualizados no SQLite usando o email
         const dbUser: any = await getUserByEmail(sessionUser.email);
         
         if (dbUser) {
             setNome(dbUser.nome || '');
             setEmail(dbUser.email || '');
             setTelefone(dbUser.telefone || '');
-            setBio(dbUser.bio || 'Administrador do sistema.');
+            setBio(dbUser.bio || '');
             setImage(dbUser.profile_image || null);
         }
       }
@@ -88,7 +84,6 @@ export default function PerfilScreen() {
     }
   };
 
-  // 2. Escolher Foto da Galeria
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
@@ -99,7 +94,7 @@ export default function PerfilScreen() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 0.5, // Qualidade média para não pesar no banco de dados
+      quality: 0.5,
     });
 
     if (!result.canceled) {
@@ -107,7 +102,6 @@ export default function PerfilScreen() {
     }
   };
 
-  // 3. Salvar Alterações no SQLite
   const handleSave = async () => {
     if (!nome.trim()) {
         return Alert.alert('Erro', 'O nome não pode estar vazio.');
@@ -115,7 +109,6 @@ export default function PerfilScreen() {
 
     setLoading(true);
     try {
-      // Atualiza no Banco de Dados
       await updateUserProfile(email, {
         nome,
         telefone,
@@ -123,8 +116,6 @@ export default function PerfilScreen() {
         profile_image: image
       });
       
-      // Atualiza a sessão local (AsyncStorage) para que o Dashboard veja a mudança imediatamente
-      // Mantemos o email e atualizamos nome e imagem
       const currentUser = { nome, email, profile_image: image };
       await AsyncStorage.setItem('currentUser', JSON.stringify(currentUser));
 
@@ -143,7 +134,7 @@ export default function PerfilScreen() {
 
   if (loading) {
     return (
-        <DashboardLayout>
+        <DashboardLayout showTrialBanner={false}>
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                 <ActivityIndicator size="large" color={colors.primary} />
             </View>
@@ -152,7 +143,7 @@ export default function PerfilScreen() {
   }
 
   return (
-    <DashboardLayout>
+    <DashboardLayout showTrialBanner={false}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
           
@@ -181,7 +172,7 @@ export default function PerfilScreen() {
             <Text style={[styles.role, { color: colors.textSecondary }]}>{email}</Text>
           </View>
 
-          {/* Formulário */}
+          {/* Formulário (Botão está FORA deste View) */}
           <View style={[styles.formCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
             
             <View style={styles.inputGroup}>
@@ -200,7 +191,7 @@ export default function PerfilScreen() {
               <TextInput 
                 style={[styles.input, { backgroundColor: colors.inputBg, color: colors.textSecondary, borderColor: colors.border }]}
                 value={email}
-                editable={false} // Email geralmente não se altera aqui para não quebrar a chave do DB
+                editable={false}
               />
               <Text style={{fontSize: 12, color: colors.textSecondary, marginTop: 4}}>O email não pode ser alterado.</Text>
             </View>
@@ -217,7 +208,7 @@ export default function PerfilScreen() {
               />
             </View>
 
-            <View style={styles.inputGroup}>
+            {/* <View style={styles.inputGroup}>
               <Text style={[styles.label, { color: colors.text }]}>Bio</Text>
               <TextInput 
                 style={[styles.input, styles.textArea, { backgroundColor: colors.inputBg, color: colors.text, borderColor: colors.border }]}
@@ -229,16 +220,17 @@ export default function PerfilScreen() {
                 placeholder="Conte um pouco sobre você..."
                 placeholderTextColor={colors.textSecondary}
               />
-            </View>
-
-            <TouchableOpacity 
-              style={[styles.saveButton, { backgroundColor: colors.primary }]} 
-              onPress={handleSave}
-            >
-              <Text style={styles.saveButtonText}>Salvar Alterações</Text>
-            </TouchableOpacity>
+            </View> */}
 
           </View>
+
+          {/* Botão Salvar FORA do card (solto) */}
+          <TouchableOpacity 
+            style={[styles.saveButton, { backgroundColor: colors.primary }]} 
+            onPress={handleSave}
+          >
+            <Text style={styles.saveButtonText}>Salvar Alterações</Text>
+          </TouchableOpacity>
 
         </ScrollView>
       </KeyboardAvoidingView>
@@ -312,7 +304,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 40, // Espaçamento aumentado
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   saveButtonText: { color: '#FFF', fontWeight: 'bold', fontSize: 16 },
 });

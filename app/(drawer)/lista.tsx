@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// --- TEMA DE CORES (Consistente com o resto do app) ---
 const THEME = {
   light: {
     bg: 'transparent',
@@ -63,17 +62,15 @@ export default function ListaScreen() {
   const isDark = colorScheme === 'dark';
   const colors = isDark ? THEME.dark : THEME.light;
 
-  // Responsividade do Grid (1 coluna no mobile, 2 no tablet)
   const isMobile = width < 768;
   const cardWidth = isMobile ? '100%' : '48%';
 
   const [anuncios, setAnuncios] = useState<Anuncio[]>([
-    // Dados de exemplo
+   
   ]);
   
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Campos do formulário
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
   const [tipoProduto, setTipoProduto] = useState('');
@@ -81,7 +78,6 @@ export default function ListaScreen() {
   const [arquivoUrl, setArquivoUrl] = useState('');
   const [demoLink, setDemoLink] = useState('');
 
-  // Dropdown manual para substituir o Picker (mais fácil de estilizar)
   const [showTypeDropdown, setShowTypeDropdown] = useState(false);
   const types = ['Digital', 'Físico', 'Misto'];
 
