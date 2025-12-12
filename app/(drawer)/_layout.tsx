@@ -32,7 +32,7 @@ export default function DrawerLayout() {
           
           drawerStyle: { 
             backgroundColor: colors.bg, 
-            width: 260 
+            width: 240 
           },
           
           drawerActiveBackgroundColor: colors.activeBg,
@@ -40,15 +40,15 @@ export default function DrawerLayout() {
           drawerInactiveTintColor: colors.inactiveTint,
           
           drawerLabelStyle: { 
-            marginLeft: 12, 
-            fontSize: 14,   
+            marginLeft: 4, 
+            fontSize: 13,   
             fontWeight: '600',
             letterSpacing: 0.5
           },
           
           drawerItemStyle: {
             borderRadius: 8,
-            marginHorizontal: 12,
+            marginHorizontal: 1,
             marginVertical: 2, 
             paddingVertical: 0, 
           }

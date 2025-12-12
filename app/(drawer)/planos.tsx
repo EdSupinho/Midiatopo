@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// --- DEFINIÇÃO DE TEMAS ---
 const THEME = {
   light: {
     background: 'transparent',
@@ -51,9 +50,7 @@ interface Plan {
   isCurrent?: boolean;
 }
 
-// --- COMPONENTES AUXILIARES ---
 
-// Modal de Seleção de Plano (Wizard)
 interface SelectPlanModalProps {
   visible: boolean;
   onClose: () => void;
@@ -79,7 +76,6 @@ function SelectPlanModal({ visible, onClose, currentPlan, onSelectPlan, colors }
     { id: 'annual', name: 'Anual', description: 'Melhor valor (Economize 30%)', price: '990 MZN', priceValue: 990, period: 'anual' },
   ];
 
-  // Renderização dos Passos (Stepper)
   const renderStepIndicator = () => (
     <View style={modalStyles.stepsContainer}>
       {[1, 2, 3].map((step) => {
@@ -259,14 +255,13 @@ export default function PlansScreen() {
 
   const handleSelectPlan = (plan: Plan) => {
     console.log('Plano selecionado:', plan);
-    // Aqui você implementaria a lógica real de atualização
   };
 
   return (
     <DashboardLayout 
       showTrialBanner={true} 
       daysRemaining={58}
-      disableModal={showModal} // Desabilita o modal de trial enquanto este estiver aberto
+      disableModal={showModal} 
     >
       <View style={{ flex: 1, gap: 24 }}>
         
@@ -337,7 +332,6 @@ export default function PlansScreen() {
   );
 }
 
-// --- ESTILOS DA TELA ---
 const styles = StyleSheet.create({
   headerTitle: { fontSize: 28, fontWeight: '700', marginBottom: 4 },
   headerSubtitle: { fontSize: 16, marginBottom: 20 },

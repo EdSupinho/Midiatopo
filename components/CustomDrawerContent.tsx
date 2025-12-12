@@ -8,16 +8,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native'; 
 const THEME = {
   light: {
-    bg: '#FFFFFF',
-    text: '#1F2937',
+    bg: '#ccc7c7ff',
+    text: '#354458ff',
     textSecondary: '#6B7280',
-    border: '#E5E7EB',
+    border: '#868b94ff',
     danger: '#EF4444',
     iconBg: '#EEF2FF',
-    iconColor: '#312E81'
+    iconColor: '#2e2b7aff'
   },
   dark: {
-    bg: '#0F172A', // Slate 950
+    bg: '#0F172A', 
     text: '#F9FAFB',
     textSecondary: '#94A3B8',
     border: '#1E293B',
@@ -34,7 +34,6 @@ export default function CustomDrawerContent(props: any) {
   const isDark = colorScheme === 'dark';
   const colors = isDark ? THEME.dark : THEME.light;
 
-  // Estado do Usuário
   const [user, setUser] = useState({ 
     name: "Visitante", 
     email: "Faça login para acessar", 
@@ -82,17 +81,16 @@ export default function CustomDrawerContent(props: any) {
         {...props} 
         contentContainerStyle={{ paddingTop: 0 }}
       >
-        {/* --- HEADER (Perfil do Usuário) --- */}
+        {/* HEADER */}
         <View style={[
             styles.headerContainer, 
             { 
                 paddingTop: insets.top + 20, 
                 borderBottomColor: colors.border,
-                backgroundColor: isDark ? '#0F172A' : '#F9FAFB' // Fundo levemente diferente para destaque
+                backgroundColor: isDark ? '#0F172A' : '#F9FAFB' 
             }
         ]}>
           <View style={styles.profileRow}>
-            {/* Foto ou Iniciais */}
             <View style={[styles.avatar, { backgroundColor: colors.iconBg, borderColor: colors.border }]}>
                 {user.image ? (
                     <Image 
@@ -105,25 +103,24 @@ export default function CustomDrawerContent(props: any) {
                 )}
             </View>
             
-            {/* Infos */}
             <View style={styles.profileInfo}>
               <Text style={[styles.profileName, { color: colors.text }]} numberOfLines={1}>
                 {user.name}
               </Text>
-              <Text style={[styles.profileEmail, { color: colors.textSecondary }]} numberOfLines={1}>
+              {/* <Text style={[styles.profileEmail, { color: colors.textSecondary }]} numberOfLines={1}>
                 {user.email}
-              </Text>
+              </Text> */}
             </View>
           </View>
         </View>
 
-        {/* --- LISTA DE MENUS (Gerado pelo DrawerLayout) --- */}
+        {/*LISTA DE MENUS */}
         <View style={styles.menuItemsContainer}>
             <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
 
-      {/* --- FOOTER (Sair) --- */}
+      {/*FOOTER*/}
       <View style={[styles.footer, { paddingBottom: insets.bottom + 20, borderTopColor: colors.border }]}>
         <TouchableOpacity 
           style={[styles.logoutButton, { backgroundColor: isDark ? 'rgba(248, 113, 113, 0.1)' : '#FEF2F2' }]} 

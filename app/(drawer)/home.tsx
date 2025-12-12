@@ -49,8 +49,8 @@ export default function HomeScreen() {
   const menuItems = [
     { label: 'Novo Anúncio', icon: 'add', route: '/criar-anuncio', color: '#10B981' },
     { label: 'Meus Anúncios', icon: 'list', route: '/(drawer)/lista', color: '#3B82F6' },
-    { label: 'Assinatura', icon: 'diamond', route: '/(drawer)/planos', color: '#F59E0B' },
-    { label: 'Carregar Ficheiros', icon: 'cloud-upload', route: null, color: '#8B5CF6' },
+    { label: 'Minha Assinatura', icon: 'diamond', route: '/(drawer)/planos', color: '#F59E0B' },
+    { label: 'Carregar Ficheiros', icon: 'cloud-upload', route: "/(drawer)/carregar-ficheiros", color: '#8B5CF6' },
     { label: 'Divulgação', icon: 'megaphone', route: null, color: '#EF4444' },
     { label: 'Minhas Campanhas', icon: 'stats-chart', route: '/(drawer)/lista', color: '#EC4899' },
   ];

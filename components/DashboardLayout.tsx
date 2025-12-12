@@ -26,7 +26,6 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUserByEmail } from '../app/lib/database';
 
-// --- TEMA DE CORES ---
 const LIGHT_THEME = {
   primary: '#1F41BB',
   background: '#F8F9FA',
@@ -69,10 +68,9 @@ const DARK_THEME = {
   bottomBarBorder: '#374151'
 };
 
-// --- CÁLCULO DA BARRA DE STATUS ---
-// Isso garante que os botões não fiquem embaixo do relógio/bateria
+
 const STATUSBAR_HEIGHT = Platform.OS === 'android' ? (StatusBar.currentHeight || 24) : 44;
-const HEADER_CONTENT_HEIGHT = 54; // Altura compacta do conteúdo da barra
+const HEADER_CONTENT_HEIGHT = 54; 
 const TOTAL_HEADER_HEIGHT = STATUSBAR_HEIGHT + HEADER_CONTENT_HEIGHT;
 
 const MOCK_NOTIFICATIONS = [
@@ -264,7 +262,6 @@ export default function DashboardLayout({
             </View>
           )}
 
-          {/* Banner Compacto */}
           {showTrialBanner && !hideTopBar && (
             <View style={[styles.bannerContainer, { backgroundColor: theme.bannerBg, borderTopColor: theme.border }]}>
                 <View style={styles.trialContent}>
@@ -289,7 +286,7 @@ export default function DashboardLayout({
             </View>
           )}
 
-          {/* --- DROPDOWNS --- */}
+          {/* DROPDOWNS */}
           {isNotifOpen && (
               <View style={[styles.notifDropdown, { backgroundColor: theme.card, borderColor: theme.border, shadowColor: theme.shadow }]}>
                   <View style={[styles.notifHeader, { borderBottomColor: theme.border }]}>
@@ -345,7 +342,6 @@ export default function DashboardLayout({
             )}
 
       </View>
-      {/* --- FIM HEADER FIXO --- */}
 
       <ScrollView 
         style={styles.scrollView}
@@ -386,7 +382,6 @@ export default function DashboardLayout({
 const styles = StyleSheet.create({
   container: { flex: 1 },
   
-  // CONTAINER: Garante que nada suba para a status bar (paddingTop)
   fixedHeaderContainer: {
     zIndex: 1000,
     shadowOffset: { width: 0, height: 4 },
@@ -394,12 +389,11 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 10,
     paddingBottom: 0,
-    // Corrigido: Não colocamos padding aqui, e sim na TopBar para controle total
   },
 
   topBar: {
-    height: TOTAL_HEADER_HEIGHT, // Altura total calculada
-    paddingTop: STATUSBAR_HEIGHT, // Empurra o conteúdo para baixo da Status Bar
+    height: TOTAL_HEADER_HEIGHT, 
+    paddingTop: STATUSBAR_HEIGHT, 
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -420,7 +414,6 @@ const styles = StyleSheet.create({
   
   dropdownOverlay: { position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, zIndex: 900, backgroundColor: 'transparent' },
   
-  // DROPDOWNS: Posição calculada para começar logo após a barra (Status Bar + Altura da barra)
   dropdownMenu: { position: 'absolute', top: TOTAL_HEADER_HEIGHT, right: 0, width: 240, borderRadius: 12, paddingVertical: 8, shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.2, shadowRadius: 20, elevation: 30, zIndex: 9000, borderWidth: 1 },
   dropdownItem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 16, gap: 12 },
   dropdownText: { fontSize: 13, fontWeight: '500' },
@@ -437,7 +430,6 @@ const styles = StyleSheet.create({
   unreadDot: { width: 6, height: 6, borderRadius: 3, marginTop: 6 },
   notifFooter: { padding: 10, alignItems: 'center', borderTopWidth: 1 },
 
-  // BANNER COMPACTO
   bannerContainer: { 
     paddingHorizontal: 20, 
     paddingVertical: 6, 

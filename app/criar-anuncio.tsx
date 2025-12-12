@@ -243,7 +243,7 @@ export default function CriarAnuncioScreen() {
             <View style={cardStyle}>
               <View style={styles.fieldContainer}>
                 <Text style={[styles.label, { color: colors.text }]}>Título <Text style={styles.required}>*</Text></Text>
-                <TextInput style={inputStyle} value={titulo} onChangeText={setTitulo} placeholder="Ex: Venda de Imóvel" placeholderTextColor={colors.textSecondary} />
+                <TextInput style={inputStyle} value={titulo} onChangeText={setTitulo} placeholder="Ex: Publicacao de um anuncio" placeholderTextColor={colors.textSecondary} />
               </View>
 
               <View style={styles.fieldContainer}>
@@ -253,7 +253,7 @@ export default function CriarAnuncioScreen() {
 
               <View style={styles.fieldContainer}>
                 <Text style={[styles.label, { color: colors.text }]}>Categoria</Text>
-                <TextInput style={inputStyle} value={tipoProduto} onChangeText={setTipoProduto} placeholder="Ex: Tecnologia, Moda..." placeholderTextColor={colors.textSecondary} />
+                <TextInput style={inputStyle} value={tipoProduto} onChangeText={setTipoProduto} placeholder="Ex: Radio de Mocambique..." placeholderTextColor={colors.textSecondary} />
               </View>
 
               <View style={styles.fieldContainer}>
